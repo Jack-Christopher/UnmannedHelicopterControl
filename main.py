@@ -6,7 +6,7 @@ points = np.random.rand(30, 3)
 # convert numpy array to list
 points = points.tolist()
 #round points to 2 decimal places
-points = [[round(point[0]*20, 1), round(point[1]*20, 1), round(point[2]*20, 1)] for point in points]
+points = [[round(point[0]*30, 1), round(point[1]*30, 1), round(point[2]*30, 1)] for point in points]
 print(points)
 
 helicopter = points[0]
