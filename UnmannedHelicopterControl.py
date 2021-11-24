@@ -30,7 +30,7 @@ def fly(points, helicopter, target):
     while (flag):
         plt.pause(1)
         plt.cla()
-        print("Helicopter: ", helicopter)
+        print("Helicopter: ", helicopter, " Target: ", target)
 
         tree = kd_tree.make_kd_tree(points+[helicopter]+[target], 3)
         # add points to plot
@@ -44,16 +44,20 @@ def fly(points, helicopter, target):
 
         ax.plot([helicopter[0], target[0]], [helicopter[1], target[1]], [helicopter[2], target[2]], color='black')
 
-        temp = kd_tree.get_knn(tree, helicopter, 5, 3, kd_tree.euclidean_distance)
-        normal_mode = all([i[0] > 1 for i in temp])
+        temp = kd_tree.get_knn(tree, helicopter, 10, 3, kd_tree.euclidean_distance)
+        normal_mode = any([i[0] > 7 for i in temp])
         temp = [item[1] for item in temp]
+        # print("temp: ", temp)
         # camino no directo
-        if (not normal_mode):            
+        if (not normal_mode):       
             temp = average_point(temp)
-        temp = point_difference(temp, target)
-        # si la distancia es menor a 1, flag FALSE
-        if (all (i < 1 for i in temp)):
-            flag = False
+            temp = point_difference(temp, target)
+            print("Average DONE")
+        else:
+            temp = point_difference(helicopter, target)
+            # si la distancia es menor a 1, flag FALSE
+            if (all (i < 0.5 for i in temp)):
+                flag = False
         temp = normalize_vector(temp)
         temp = [ (helicopter[i]+ temp[i]) for i in range(3)]
         helicopter = temp
