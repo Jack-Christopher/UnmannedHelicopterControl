@@ -51,7 +51,7 @@ def fly(points, helicopter, target):
             temp = average_point(temp)
         temp = point_difference(temp, target)
         print("PD", temp)
-        # si la diferencia es menor a 1, flag FALSE
+        # si la distancia es menor a 1, flag FALSE
         if (all (i < 1 for i in temp)):
             flag = False
         temp = normalize_vector(temp)
